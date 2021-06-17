@@ -169,7 +169,6 @@ const player = {
   bottom: -90px;
   left: 50%;
   margin-left: -100px;
-  z-index: 9;
   border-radius: 100px;
 }
 
