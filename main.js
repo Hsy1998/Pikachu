@@ -206,12 +206,13 @@ const player = {
     "#btnSlow" : 'slow',
     "#btnMedium" : 'medium',
     "#btnFast" : 'Fast',
+    "#btnReplay" : 'Replay',
   },
-  init: () => {
+  init: () => { // 初始化
     player.bindEvents()
     player.play()
   },
-  bindEvents : () => {
+  bindEvents : () => { // 绑定点击事件
     for (let key in player.events) {
       if (player.events.hasOwnProperty(key)) {
         const value = player.events[key] // value = 'pause' / 'play' ...
@@ -219,29 +220,31 @@ const player = {
       }
     }
   },
-  play : () => {
-    player.pause()
+  play : () => { // 播放
     player.id = setTimeout(player.run, player.time)
   },
-  pause : () => {
+  pause : () => { // 暂停
     return window.clearTimeout(player.id)
   },
-  slow : () => {
+  slow : () => { // 慢速
     player.pause(),
     player.time = 140,
     player.play()
   },
-  medium : () => {
+  medium : () => { // 中速
     player.pause(),
     player.time = 70,
     player.play()
   },
-  Fast : () => {
+  Fast : () => { // 快速
     player.pause(),
     player.time = 0,
     player.play()
   },
-  run : () => {
+  Replay : () => { // 重播
+    location.reload() // 刷新页面
+  },
+  run : () => { // 插入setTimeout里的函数
     if (player.str[player.n] === "\n") {
       // 如果是回车，就加<br>,不照搬
       player.str2 += "<br>";
@@ -251,14 +254,13 @@ const player = {
       // 如果不是回车就照搬
       player.str2 += player.str[player.n];
     }
-    // str2里有55个字符
+
     player.ui.html.innerHTML = player.str2;
     player.ui.style.innerHTML = player.str.substring(0, player.n);
     window.scrollTo(0, 99999);
     html.scrollTo(0, 99999);
-    //  n = 53
     if (player.n < player.str.length - 1) {
-      player.n += 1; // 54 就不会多打印undefined
+      player.n += 1; 
       player.play();
     }
   }
